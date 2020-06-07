@@ -31,6 +31,13 @@ public class HomePage {
 	private WebElement okButton;
 	@FindBy(className = "android.widget.EditText")
 	private WebElement password;
+	@FindBy(className = "android.widget.ImageButton")
+	private WebElement menuButton;
+	@FindBy(xpath = "(//*[@class='android.widget.LinearLayout'])[16]")
+	private WebElement signoutBtn;
+	
+	@FindBy(id = "in.okcredit.merchant:id/logout")
+	private WebElement signoutConfirmationBtn;
 	public HomePage(WebDriver driver) {
 
 		this.driver = driver;
@@ -70,6 +77,12 @@ public class HomePage {
 		GenericMethods.click(okButton);
 		GenericMethods.enterText(password, pwd);
 		GenericMethods.click(okButton);
+	}
+	
+	public void signout(){
+		GenericMethods.click(menuButton);
+		GenericMethods.click(signoutBtn);
+		GenericMethods.click(signoutConfirmationBtn);
 	}
 
 }

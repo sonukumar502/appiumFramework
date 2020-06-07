@@ -23,7 +23,7 @@ public class ExcelUtils {
 			int startCol = 0;
 			int ci, cj;
 			int totalRows = ExcelWSheet.getLastRowNum();
-			int totalCols = 4;
+			int totalCols = 8;
 			tabArray = new String[totalRows][totalCols];
 			ci = 0;
 			for (int i = startRow; i <= totalRows; i++, ci++) {

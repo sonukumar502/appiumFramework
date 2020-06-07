@@ -1,17 +1,14 @@
 package com.okCredit;
 
-import java.io.IOException;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -19,7 +16,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 import junit.framework.Assert;
 import pages.HomePage;
 import pages.LandingPage;
@@ -41,24 +38,35 @@ public class AppTest {
 			}
 
 	@Test(dataProvider = "TestData")
-	public void testParameterWithXML(String tcName,String amt, String srcCurr, String targetCurr) throws Exception {
+	public void testParameterWithXML(String tcName,String language, String username, String pwd, String custname, String ph, String credit, String payment) throws Exception {
 		ex.test = ex.extent.createTest(tcName, "");
 		HomePage hp=new HomePage(driver);
 		LandingPage lp= new LandingPage(driver);
-		hp.selectLanguage("english");
+		hp.selectLanguage(language);
 		hp.clickOnGetStarted();
-		hp.enterMobileNoAndPassword("7406764431", "123456");
+		hp.enterMobileNoAndPassword(username, pwd);
 		Assert.assertTrue(lp.verifySuccessfullLogin());
-		Assert.assertTrue(lp.addCustomer("test1", ""));
-		Assert.assertTrue(lp.addCredit("100"));
+		Assert.assertTrue(lp.addCustomer(custname, ph));
+		Assert.assertTrue(lp.addCredit(credit));
 		List<String> listOfCustomers=lp.getListOfAllCustomers();
 		ex.test.log(Status.INFO, "List of Customers: "+listOfCustomers);
+		String balance=lp.addPayment(payment);
+		if(balance.equals(GenericMethods.convertToIntAndSubstract(credit, payment))){
+			Assert.assertTrue(true);
+			ex.test.log(Status.PASS, "Expected balance amt: "+GenericMethods.convertToIntAndSubstract(credit, payment)+" is equal to Actual balance: "+balance);
+		}
+		else{
+			ex.test.log(Status.FAIL, "Expected balance amt: "+GenericMethods.convertToIntAndSubstract(credit, payment)+" is not equal to Actual balance: "+balance);
+			Assert.assertTrue(false);
+		}
 		}
 
 	@AfterMethod
 	public void afterEveryTest(ITestResult result) throws Exception{
 		ex.getResult(result);
-	}
+		HomePage hp= new HomePage(driver);
+		hp.signout();
+			}
 	
 	@AfterClass
 	public void tearDown() {

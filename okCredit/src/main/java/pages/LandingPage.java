@@ -47,6 +47,8 @@ public class LandingPage {
 	private WebElement searchCustomer;
 	@FindBy(id = "in.okcredit.merchant:id/desc")
 	private List<WebElement> customerList;
+	@FindBy(id = "in.okcredit.merchant:id/total")
+	private WebElement balanceAmt;
 	
 	public LandingPage(WebDriver driver) {
 		this.driver = driver;
@@ -137,6 +139,52 @@ public class LandingPage {
 			ls.add(customerList.get(i).getText().trim());
 		}
 		return ls;
+	}
+	
+	public String addPayment(String creditAmt) throws InterruptedException{
+		GenericMethods.enterText(searchCustomer, customName);
+		GenericMethods.click(customerList.get(0));
+		Thread.sleep(1000);
+		GenericMethods.click(addPaymentBtn);
+		String id="in.okcredit.merchant:id/btn_";
+		for(int i=0;i<creditAmt.trim().length();i++){
+			if(creditAmt.charAt(i)=='1'){
+				id=id+"one";
+			}
+			if(creditAmt.charAt(i)=='2'){
+				id=id+"two";
+			}
+			if(creditAmt.charAt(i)=='3'){
+				id=id+"three";
+			}
+			if(creditAmt.charAt(i)=='4'){
+				id=id+"four";
+			}
+			if(creditAmt.charAt(i)=='5'){
+				id=id+"five";
+			}
+			if(creditAmt.charAt(i)=='6'){
+				id=id+"six";
+			}
+			if(creditAmt.charAt(i)=='7'){
+				id=id+"seven";
+			}if(creditAmt.charAt(i)=='8'){
+				id=id+"eight";
+			}
+			if(creditAmt.charAt(i)=='9'){
+				id=id+"nine";
+			}
+			if(creditAmt.charAt(i)=='0'){
+				id=id+"zero";
+			}
+			driver.findElement(By.id(id)).click();
+			id="in.okcredit.merchant:id/btn_";
+		}
+		GenericMethods.click(submitBtn);
+		Thread.sleep(1000);
+		String balance=balanceAmt.getText().trim();
+		driver.navigate().back();
+		return balance;
 	}
 
 	

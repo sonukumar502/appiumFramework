@@ -23,6 +23,7 @@ public class GenericMethods {
 	}
 	
 	public static void enterText(WebElement we, String txt){
+		we.clear();
 		we.sendKeys(txt);;
 	}
 	
@@ -48,6 +49,16 @@ public class GenericMethods {
 		File DestFile = new File(filePath.toString());
 		FileUtils.copyFile(SrcFile, DestFile);
 		return filePath;
+	}
+	
+	public static String convertToIntAndSubstract(String a, String b){
+		String diff="";
+		int a1=Integer.parseInt(a);
+		int a2=Integer.parseInt(b);
+		int diff1=a1-a2;
+		diff=Integer.toString(diff1);
+		return diff;
+		
 	}
 	
 
