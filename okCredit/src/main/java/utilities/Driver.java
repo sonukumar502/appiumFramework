@@ -30,7 +30,7 @@ public class Driver {
 			driver = new RemoteWebDriver(new java.net.URL("http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub"), browserOptions);
 		}
 		
-		if(browser.equalsIgnoreCase("android9")){
+		else if(browser.equalsIgnoreCase("android9")){
 			DesiredCapabilities caps = DesiredCapabilities.android();
 			caps.setCapability("appiumVersion", "1.17.1");
 			caps.setCapability("deviceName","Samsung Galaxy S9 WQHD GoogleAPI Emulator");
@@ -39,6 +39,36 @@ public class Driver {
 			caps.setCapability("platformVersion","9.0");
 			caps.setCapability("platformName","Android");
 			caps.setCapability("name","Android Test version 9");
+			caps.setCapability("app","sauce-storage:okCredit.apk");
+			caps.setCapability("appPackage", "in.okcredit.merchant");
+			caps.setCapability("appActivity", "in.okcredit.app.ui.launcher.LauncherActivity");
+			driver = new RemoteWebDriver(new java.net.URL("http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub"), caps);
+		}
+		
+		else if(browser.equalsIgnoreCase("android10")){
+			DesiredCapabilities caps = DesiredCapabilities.android();
+			caps.setCapability("appiumVersion", "1.17.1");
+			caps.setCapability("deviceName","Google Pixel 3 GoogleAPI Emulator");
+			caps.setCapability("deviceOrientation", "portrait");
+			caps.setCapability("browserName", "");
+			caps.setCapability("platformVersion","10.0");
+			caps.setCapability("platformName","Android");
+			caps.setCapability("name","Android Test version 10");
+			caps.setCapability("app","sauce-storage:okCredit.apk");
+			caps.setCapability("appPackage", "in.okcredit.merchant");
+			caps.setCapability("appActivity", "in.okcredit.app.ui.launcher.LauncherActivity");
+			driver = new RemoteWebDriver(new java.net.URL("http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub"), caps);
+		}
+		
+		else if(browser.equalsIgnoreCase("ios13")){
+			DesiredCapabilities caps = DesiredCapabilities.iphone();
+			caps.setCapability("appiumVersion", "1.17.1");
+			caps.setCapability("deviceName","iPhone XR Simulator");
+			caps.setCapability("deviceOrientation", "portrait");
+			caps.setCapability("platformVersion","13.2");
+			caps.setCapability("platformName", "iOS");
+			caps.setCapability("browserName", "");
+			caps.setCapability("name","IOS Test version 13.2");
 			caps.setCapability("app","sauce-storage:okCredit.apk");
 			caps.setCapability("appPackage", "in.okcredit.merchant");
 			caps.setCapability("appActivity", "in.okcredit.app.ui.launcher.LauncherActivity");
