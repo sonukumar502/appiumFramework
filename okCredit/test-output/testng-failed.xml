@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <test name="CurrencyConversionTest(failed)">
+    <parameter name="browser" value=""/>
+    <classes>
+      <class name="rockall.rockall.AppTest">
+        <methods>
+          <include name="setup"/>
+          <include name="tearDown"/>
+          <include name="afterEveryTest"/>
+          <include name="testParameterWithXML" invocation-numbers="1 4"/>
+        </methods>
+      </class> <!-- rockall.rockall.AppTest -->
+    </classes>
+  </test> <!-- CurrencyConversionTest(failed) -->
+</suite> <!-- Failed suite [Suite] -->
