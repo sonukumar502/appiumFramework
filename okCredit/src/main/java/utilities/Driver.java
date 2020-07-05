@@ -10,7 +10,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Driver {
@@ -44,6 +47,19 @@ public class Driver {
 			caps.setCapability("appActivity", "in.okcredit.app.ui.launcher.LauncherActivity");
 			driver = new RemoteWebDriver(new java.net.URL("http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub"), caps);
 		}
+		
+		else if(browser.equalsIgnoreCase("android8")){
+			DesiredCapabilities caps = DesiredCapabilities.android();
+			caps.setCapability("appiumVersion", "1.17.1");
+			caps.setCapability("deviceName","emulator-5554");
+			caps.setCapability("deviceOrientation", "portrait");
+			caps.setCapability("browserName", "");
+			caps.setCapability("platformVersion","8.1.0");
+			caps.setCapability("platformName","Android");
+			caps.setCapability("appPackage", "in.okcredit.merchant");
+			caps.setCapability("appActivity", "in.okcredit.app.ui.launcher.LauncherActivity");
+			driver= new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+		} 	 	
 		
 		else if(browser.equalsIgnoreCase("android10")){
 			DesiredCapabilities caps = DesiredCapabilities.android();
